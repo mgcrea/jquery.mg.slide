@@ -16,7 +16,10 @@
 (function( $, console, undefined ) {
 
 var defaults = {
+	active: 'ui-state-active',
+	easing: 'easeOutExpo'
 	container: "body",
+	zindex: 9,
 	tempo: 300,
 	debug: false,
 };
@@ -51,12 +54,12 @@ $.fn.extend({
 
 			$container.data("history", "#" + $current.attr("id")).data("history-transform", direction);
 
-			$next.css($.extend({position: 'absolute', 'z-index' : 9}, map[direction][0])).addClass("ui-state-active");
+			$next.css($.extend({position: 'absolute', 'z-index' : o.zindex}, map[direction][0])).addClass(o.active);
 
-			$current.css({opacity: .75}).add($next).animate($.extend({leaveTransforms: true, useTranslate3d: true}, map[direction][1]), o.tempo, 'easeOutExpo', function() {
-				$current.removeClass("ui-state-active").removeAttr("style");
+			$current.css({opacity: .75}).add($next).animate($.extend({leaveTransforms: true, useTranslate3d: true}, map[direction][1]), o.tempo, o.easing, function() {
+				$current.removeClass(o.active).removeAttr("style");
 				$next.removeAttr("style");
-				if(callback) callback();
+				if($.isFunction(callback)) callback();
 			});
 
 		}
