@@ -17,7 +17,8 @@
 
 var defaults = {
 	active: 'ui-state-active',
-	easing: 'easeOutExpo'
+	easing: 'easeOutExpo',
+	attribute: 'id',
 	container: "body",
 	zindex: 9,
 	tempo: 300,
@@ -52,7 +53,7 @@ $.fn.extend({
 
 		if($next.get(0) != $current.get(0)) {
 
-			$container.data("history", "#" + $current.attr("id")).data("history-transform", direction);
+			$container.data("history", "#" + $current.attr(o.attribute)).data("history-transform", direction);
 
 			$next.css($.extend({position: 'absolute', 'z-index' : o.zindex}, map[direction][0])).addClass(o.active);
 
